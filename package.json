@@ -2,12 +2,17 @@
   "name": "alarm",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jquery": "^3.1.0",
+    "moment": "^2.14.1",
     "mustache-express": "^1.2.2",
     "node-persist": "0.0.11"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  }
 }

@@ -7,7 +7,7 @@ var mustacheExpress = require('mustache-express');
 app.engine('html', mustacheExpress());
 
 app.set('view engine', 'html');
-app.set('views',__dirname + "/assets/views/")
+app.set('views', __dirname + "/assets/views/");
 storage.initSync();
 
 app.use(express.static('public'));
@@ -26,13 +26,13 @@ app.get('/save', function (req, res) {
 		time:req.query.usr_time,
 	};
 	storage.setItem('time',req.query.usr_time);
-	res.end(JSON.stringify(response));
+	res.redirect('/');
 });
 
 app.get('/get', function (req, res) {
 
 	// gets time
-	
+
 	var time = storage.getItem('time');
 	res.end(JSON.stringify(time));
 });

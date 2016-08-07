@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Alarm</title>
+	<script src="node_modules/moment/min/moment.min.js"></script>
+	<script>
+	window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.js');
+	</script>
+</head>
+<body>
+	<h1>Alarm</h1>
+	Alarm is set for <span id="time"></span>.
+</body>
+
+<script>
+require('./renderer.js')
+</script>
+</html>
