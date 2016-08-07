@@ -8,7 +8,8 @@ app.use(express.static('assets/public'));
 // Register '.mustache' extension with The Mustache Express
 app.engine('html', hbs.__express);
 // check helper
-hbs.registerHelper("checked", function( array, value, options ){
+hbs.registerHelper("checked", function( array, value, options ) {
+	array = ( array instanceof Array ) ? array : [array];
 	return (array.indexOf(value) > -1) ? 'checked="checked"' : '';
 });
 

@@ -16,7 +16,12 @@ let mainWindow;
 
 function createWindow () {
 	// Create the browser window.
-	mainWindow = new BrowserWindow({width: 800, height: 600});
+	mainWindow = new BrowserWindow({
+		width: 800,
+		height: 600,
+		kiosk: true,
+		show: true,
+	});
 
 	// and load the index.html of the app.
 	mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -33,7 +38,7 @@ function createWindow () {
 	});
 
 	// Open the DevTools.
-	mainWindow.webContents.openDevTools();
+	//mainWindow.webContents.openDevTools();
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', function () {
@@ -64,7 +69,12 @@ app.on('activate', function () {
 
 function sendTime(window) {
 	var time = storage.getItem('time');
-	window.webContents.send('time', time);
+	var days = storage.getItem('days');
+	var send = {
+		time: time,
+		days: days
+	};
+	window.webContents.send('time', send);
 }
 
 // In this file you can include the rest of your app's specific main process

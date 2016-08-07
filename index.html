@@ -4,13 +4,18 @@
 	<meta charset="UTF-8">
 	<title>Alarm</title>
 	<script src="node_modules/moment/min/moment.min.js"></script>
+	<link rel="stylesheet" media="all" type="text/css" href="assets/public/sudokuJS.css">
 	<script>
 	window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.js');
 	</script>
+
+	<script type="text/javascript" src="assets/public/sudokuJS.js"> </script>
 </head>
 <body>
 	<h1>Alarm</h1>
 	Alarm is set for <span id="time"></span>.
+	<div id="sudoku" class="sudoku-board" style="display: none;">
+	</div>
 </body>
 
 <script>
