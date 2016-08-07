@@ -1,21 +1,40 @@
 var express = require('express');
 var app = express();
+var storage = require('node-persist');
+var mustacheExpress = require('mustache-express');
+
+// Register '.mustache' extension with The Mustache Express
+app.engine('html', mustacheExpress());
+
+app.set('view engine', 'html');
+app.set('views',__dirname + "/assets/views/")
+storage.initSync();
 
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-	res.sendFile( __dirname + "/assets/views/" + "index.html" );
+	var time = storage.getItem('time');
+	console.log(time);
+res.render('index', { time: time});
 });
+
 
 app.get('/save', function (req, res) {
 
 	// Prepare output in JSON format
 	response = {
-		first_name:req.query.first_name,
-		last_name:req.query.last_name
+		time:req.query.usr_time,
 	};
-	console.log(response);
+	storage.setItem('time',req.query.usr_time);
 	res.end(JSON.stringify(response));
+});
+
+app.get('/get', function (req, res) {
+
+	// gets time
+	
+	var time = storage.getItem('time');
+	res.end(JSON.stringify(time));
 });
 
 var server = app.listen(8081, function () {
