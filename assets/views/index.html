@@ -1,27 +1,53 @@
 <!DOCTYPE HTML>
 <HEAD>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<title>Taryn's A Piece Of Shit And Needs A Special Program To Be A Human Being</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </HEAD>
 <BODY>
-<h1>Current Time to Wake This Hoe Up: {{time}}</h1>
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Alarm</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h1>Current Time to Wake This Hoe Up: {{time}}</h1>
 	<form action="/save" method="get">
   Wake this bitch up at:
   <input type="time" value="{{time}}" name="usr_time">
-  <input type="submit"><br>
+  <input type="submit" value="save"><br>
+<div id="checkboxlist">
+  <label><input type="checkbox" name="days" value="monday" {{{checked days "monday"}}}> Monday</label>
+  <label><input type="checkbox" name="days" value="tuesday" {{{checked days "tuesday"}}}> Tuesday</label>
+  <label><input type="checkbox" name="days" value="wednesday" {{{checked days "wednesday"}}}> Wednesday</label>
+  <label><input type="checkbox" name="days" value="thursday" {{{checked days "thurday"}}}> Thursday</label>
+  <label><input type="checkbox" name="days" value="friday" {{{checked days "friday"}}}> Friday</label>
+  <label><input type="checkbox" name="days" value="saturday" {{{checked days "saturday"}}}> Saturday</label>
+  <label><input type="checkbox" name="days" value="sunday" {{{checked days "sunday"}}}> Sunday</label>
 
-  <form>
-  <input type="checkbox" name="monday" value="Bike"> Monday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Tuesday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Wednesday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Thursday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Friday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Saturday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Sunday<br>
-  <input type="checkbox" name="vehicle2" value="Car"> Every God Damned Day<br>
 
+
+
+</div>
 </form>
-</form>
 
+<button id="every" class="ui-btn ui-shadow ui-corner-all">Every God Damned Day</button> 
 <marquee behavior="scroll" direction="left">Butt Stuff City</marquee>
+	</div><!-- /content -->
+
+	
+</div>
+
+<script type="text/javascript">
+$('#every').on("click",function () {
+  
+   	$('input:checkbox').prop( "checked", true ).checkboxradio( "refresh" );
+
+});
+</script>
+
 </BODY>
 </HTML>
