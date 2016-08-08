@@ -10,6 +10,8 @@ const ipc = require('electron').ipcMain;
 
 const storage = require('node-persist');
 
+var ngrok = require('ngrok');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -37,6 +39,7 @@ function createWindow () {
 		}, 5000);
 
 		sendTime(mainWindow);
+		startTunnel(mainWindow);
 	});
 
 	// Open the DevTools.
@@ -77,6 +80,20 @@ function sendTime(window) {
 		days: days
 	};
 	window.webContents.send('time', send);
+}
+
+function startTunnel(window) {
+	ngrok.connect({
+		addr: 8081
+	}, function (err, url) {
+		if (err) {
+			console.log('ngrok failed to start', err);
+		}
+		else {
+			console.log('URL: ' + url);
+			window.webContents.send('url', url);
+		}
+	});
 }
 
 // In this file you can include the rest of your app's specific main process

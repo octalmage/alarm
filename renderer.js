@@ -29,6 +29,11 @@ ipc.on('time', function(event, send) {
 	days = send.days;
 });
 
+ipc.on('url', function(event, url) {
+	$('#url').text(url);
+	$('#url').attr('href', url);
+});
+
 // Start the alarm if we're past the time.
 setInterval(function() {
 	// Time hasn't been defined yet.

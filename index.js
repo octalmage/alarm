@@ -37,16 +37,11 @@ app.get('/save', function (req, res) {
 app.get('/get', function (req, res) {
 
 	// gets time
-
 	var time = storage.getItem('time');
 	res.end(JSON.stringify(time));
 });
 
 var server = app.listen(8081, function () {
-
-	var host = server.address().address;
 	var port = server.address().port;
-
-	console.log("Example app listening at http://%s:%s", host, port);
-
+	console.log('Server started on port ' + port);
 });
