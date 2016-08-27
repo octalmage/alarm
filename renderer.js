@@ -27,6 +27,10 @@ ipc.on('time', function(event, send) {
 
 	time = test;
 	days = send.days;
+
+	if ( send.trigger ) {
+		alarm();
+	}
 });
 
 ipc.on('url', function(event, url) {
@@ -60,11 +64,14 @@ function alarm() {
 	mySudokuJS.generateBoard("easy");
 	mySudokuJS.showCandidates();
 
-	var steps = 20;
+	var steps = 10;
 
 	for (var x = 0; x<=steps; x++) {
 		mySudokuJS.solveStep();
 	}
+
+	$('body').css('background-color', '#fff');
+	$('body').css('color', '#000');
 
 	$('#sudoku').show();
 }
@@ -73,7 +80,9 @@ function stop() {
 	audio.pause();
 	audio.currentTime = 0;
 
+	$('body').css('background-color', '#000');
+	$('body').css('color', '#fff');
+
 	$('#sudoku').hide();
 	mySudokuJS.clearBoard();
 }
-

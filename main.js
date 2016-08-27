@@ -21,7 +21,7 @@ function createWindow () {
 	mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
-		kiosk: true,
+
 		show: true,
 	});
 
@@ -75,10 +75,14 @@ app.on('activate', function () {
 function sendTime(window) {
 	var time = storage.getItem('time');
 	var days = storage.getItem('days');
+	var trigger = storage.getItem('trigger');
 	var send = {
 		time: time,
-		days: days
+		days: days,
+		trigger: trigger,
 	};
+
+	var trigger = storage.setItem('trigger', false);
 	window.webContents.send('time', send);
 }
 

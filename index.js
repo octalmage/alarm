@@ -22,7 +22,7 @@ app.use(express.static('public'));
 app.get('/', function (req, res) {
 	var time = storage.getItem('time');
 	var days = storage.getItem('days');
-res.render('index', { time: time, days: days });
+	res.render('index', { time: time, days: days });
 });
 
 
@@ -31,6 +31,12 @@ app.get('/save', function (req, res) {
 	// Prepare output in JSON format
 	storage.setItem('time',req.query.usr_time);
 	storage.setItem('days',req.query.days);
+	res.redirect('/');
+});
+
+app.get('/trigger', function (req, res) {
+	// Set the alarm trigger.
+	storage.setItem('trigger', true);
 	res.redirect('/');
 });
 

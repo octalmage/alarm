@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<HEAD>
+<head>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -7,8 +7,10 @@
 
 	<title>Taryn's A Piece Of Shit And Needs A Special Program To Be A Human Being</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-</HEAD>
-<BODY>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-icon" href="/penis.png">
+</head>
+<body>
 <div data-role="page">
 
 	<div data-role="header">
@@ -37,6 +39,9 @@
 </form>
 
 <button id="every" class="ui-btn ui-shadow ui-corner-all">Every God Damned Day</button>
+<form action="/trigger" method="get">
+<input type="submit" value="Sound the alarm!">
+</form>
 <marquee behavior="scroll" direction="left">Butt Stuff City</marquee>
 	</div><!-- /content -->
 
@@ -45,11 +50,9 @@
 
 <script type="text/javascript">
 $('#every').on("click",function () {
-
-   	$('input:checkbox').prop( "checked", true ).checkboxradio( "refresh" );
-
+  $('input:checkbox').prop( "checked", true ).checkboxradio( "refresh" );
 });
 </script>
 
-</BODY>
-</HTML>
+</body>
+</html>
