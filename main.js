@@ -82,7 +82,7 @@ function sendTime(window) {
 		trigger: trigger,
 	};
 
-	var trigger = storage.setItem('trigger', false);
+	storage.setItem('trigger', false);
 	window.webContents.send('time', send);
 }
 
@@ -96,6 +96,7 @@ function startTunnel(window) {
 		else {
 			console.log('URL: ' + url);
 			window.webContents.send('url', url);
+			storage.setItem('url', url);
 		}
 	});
 }

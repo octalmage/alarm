@@ -1,14 +1,27 @@
 <!DOCTYPE HTML>
 <head>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
 
 	<title>Taryn's A Piece Of Shit And Needs A Special Program To Be A Human Being</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="apple-touch-icon" href="/penis.png">
+
+	<script type="text/javascript">
+	// Logic to redirect to the ngrok url if it exists.
+	var url;
+
+	{{#if url}}
+	url = "{{url}}";
+	{{/if}}
+
+	if (typeof url !== 'undefined' && window.location.host.indexOf('ngrok') === -1) {
+		window.location = url;
+	}
+	</script>
 </head>
 <body>
 <div data-role="page">
@@ -49,8 +62,8 @@
 </div>
 
 <script type="text/javascript">
-$('#every').on("click",function () {
-  $('input:checkbox').prop( "checked", true ).checkboxradio( "refresh" );
+$('#every').on('click',function () {
+  $('input:checkbox').prop( 'checked', true ).checkboxradio( 'refresh' );
 });
 </script>
 
