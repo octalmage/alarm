@@ -5,6 +5,14 @@ var storage = require('node-persist');
 var hbs = require('hbs');
 app.use(express.static('assets/public'));
 
+// Redirect on on save/trigger.
+app.use(/\/(?:save|trigger)/i, function (req, res, next) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.write('<html><body><script>window.location.href = "/";</script></body></html>');
+	res.end();
+	next();
+});
+
 // Register '.mustache' extension with The Mustache Express
 app.engine('html', hbs.__express);
 // check helper
@@ -28,21 +36,19 @@ app.get('/', function (req, res) {
 
 
 app.get('/save', function (req, res) {
-
 	// Prepare output in JSON format
 	storage.setItem('time',req.query.usr_time);
 	storage.setItem('days',req.query.days);
-	res.redirect('/');
+	res.end();
 });
 
 app.get('/trigger', function (req, res) {
 	// Set the alarm trigger.
 	storage.setItem('trigger', true);
-	res.redirect('/');
+	res.end();
 });
 
 app.get('/get', function (req, res) {
-
 	// gets time
 	var time = storage.getItem('time');
 	res.end(JSON.stringify(time));
