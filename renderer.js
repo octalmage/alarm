@@ -42,7 +42,6 @@ ipc.on('time', function(event, send) {
 
 ipc.on('url', function(event, url) {
 	$('#url').text(url);
-	$('#url').attr('href', url);
 });
 
 // Start the alarm if we're past the time.
