@@ -2,7 +2,9 @@ var ipc = require('electron').ipcRenderer;
 
 var audio = new Audio('assets/alarm.mp3');
 
-var time, days;
+var time, days, oldTime;
+
+var triggered=null;
 
 var mySudokuJS = $("#sudoku").sudokuJS({
 	boardFinishedFn: function(data){
@@ -18,19 +20,24 @@ audio.addEventListener('ended', function() {
 
 
 ipc.on('time', function(event, send) {
+	if ( send.trigger ) {
+		alarm();
+	}
+
+	if (send.time === oldTime) return;
+
+	oldTime = send.time;
+
 	var test = moment(send.time, "HH:mm");
-	if (test.isBefore(moment())) {
+	if (test.isBefore(moment()) && (triggered === null || triggered === true)) {
 		test = test.add(1, 'days');
+		triggered = false;
 	}
 
 	$("#time").text(test.format("dddd, MMMM Do YYYY, h:mm a"));
 
 	time = test;
 	days = send.days;
-
-	if ( send.trigger ) {
-		alarm();
-	}
 });
 
 ipc.on('url', function(event, url) {
@@ -54,6 +61,7 @@ setInterval(function() {
 
 	// If it's currently after the time, sound the alarm!
 	if ( moment().isAfter(time) && days.indexOf(moment().format('dddd').toLowerCase()) > -1 ) {
+		triggered = true;
 		alarm();
 	}
 }, 1000);
