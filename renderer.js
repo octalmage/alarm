@@ -93,3 +93,14 @@ function convertDate(time, days) {
   return minutes + ' ' + hours + ' * * ' + dayMap.join(',');
 }
 
+var turndown = function() {
+	audio.volume = 0.01;
+};
+
+$(document).on('click', function() {
+	turndown();
+});
+
+$(document).on('keypress', turndown);
+
+$(document).on('mousemove', turndown);
