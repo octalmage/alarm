@@ -1,10 +1,7 @@
 var ipc = require('electron').ipcRenderer;
-
 var audio = new Audio('assets/alarm.mp3');
-
-var time, days, oldTime;
-
-var triggered=null;
+var CronJob = require('cron').CronJob;
+var time, days, oldTime, job;
 
 var mySudokuJS = $("#sudoku").sudokuJS({
 	boardFinishedFn: function(data){
@@ -23,49 +20,31 @@ ipc.on('time', function(event, send) {
 	if ( send.trigger ) {
 		alarm();
 	}
-
-	if (send.time === oldTime) return;
-
-	oldTime = send.time;
-
 	var test = moment(send.time, "HH:mm");
-	if (test.isBefore(moment()) && (triggered === null || triggered === true)) {
-		test = test.add(1, 'days');
-		triggered = false;
+
+	if (time == send.time && days.join() == send.days.join()) {
+		return;
 	}
 
-	$("#time").text(test.format("dddd, MMMM Do YYYY, h:mm a"));
+	job = new CronJob({
+		cronTime: convertDate(send.time, send.days),
+		onTick: alarm,
+		start: true,
+		timeZone: 'America/Chicago'
+	});
 
-	time = test;
 	days = send.days;
+	time = send.time;
+
+	$("#time").text(test.format("dddd, MMMM Do YYYY, h:mm a"));
 });
 
 ipc.on('url', function(event, url) {
 	$('#url').text(url);
 });
 
-// Start the alarm if we're past the time.
-setInterval(function() {
-	// Time hasn't been defined yet.
-	if (typeof time === undefined) {
-		return;
-	}
-	if (!(days instanceof Array)) {
-		days = [];
-	}
-
-	if (!audio.paused) {
-		return;
-	}
-
-	// If it's currently after the time, sound the alarm!
-	if ( moment().isAfter(time) && days.indexOf(moment().format('dddd').toLowerCase()) > -1 ) {
-		triggered = true;
-		alarm();
-	}
-}, 1000);
-
 function alarm() {
+	audio.volume = 1;
 	audio.play();
 
 	mySudokuJS.generateBoard("easy");
@@ -93,3 +72,35 @@ function stop() {
 	$('#sudoku').hide();
 	mySudokuJS.clearBoard();
 }
+
+function convertDate(time, days) {
+  var conversion = {
+  	'sunday': 0,
+    'monday': 1,
+    'tuesday': 2,
+    'wednesday': 3,
+    'thursday': 4,
+    'friday': 5,
+    'saturday': 6,
+  }
+  var split = time.split(':');
+  var hours = split[0];
+  var minutes = split[1];
+  var dayMap = days.map(function(d) {
+  	return conversion[d];
+  });
+
+  return minutes + ' ' + hours + ' * * ' + dayMap.join(',');
+}
+
+var turndown = function() {
+	audio.volume = 0.01;
+};
+
+$(document).on('click', function() {
+	turndown();
+});
+
+$(document).on('keypress', turndown);
+
+$(document).on('mousemove', turndown);
