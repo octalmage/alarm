@@ -26,6 +26,11 @@ ipc.on('time', function(event, send) {
 		return;
 	}
 
+	// Stop the already scheduled job.
+	if (typeof job !== 'undefined' && typeof job.running !== 'undefined') {
+		job.stop();
+	}
+
 	job = new CronJob({
 		cronTime: convertDate(send.time, send.days),
 		onTick: alarm,
