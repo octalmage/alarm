@@ -103,7 +103,7 @@ function convertDate(time, days) {
 }
 
 var turndown = function() {
-	audio.volume = 0.01;
+	audio.volume = 0.0;
 };
 
 $(document).on('click', function() {
