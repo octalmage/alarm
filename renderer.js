@@ -1,7 +1,7 @@
 var ipc = require('electron').ipcRenderer;
 var audio = new Audio('assets/alarm.mp3');
 var CronJob = require('cron').CronJob;
-var time, days, oldTime, job;
+var time, days, oldTime, job, timeout;
 
 var mySudokuJS = $("#sudoku").sudokuJS({
 	boardFinishedFn: function(data){
@@ -65,9 +65,13 @@ function alarm() {
 	$('body').css('color', '#000');
 
 	$('#sudoku').show();
+
+	// Timeout after an hour.
+	timeout = setTimeout(stop, 3600000);
 }
 
 function stop() {
+	clearTimeout(timeout);
 	audio.pause();
 	audio.currentTime = 0;
 
