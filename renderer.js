@@ -83,15 +83,16 @@ function stop() {
 }
 
 function convertDate(time, days) {
-  var conversion = {
-  	'sunday': 0,
-    'monday': 1,
-    'tuesday': 2,
-    'wednesday': 3,
-    'thursday': 4,
-    'friday': 5,
-    'saturday': 6,
-  }
+	var conversion = {
+		'sunday': 0,
+		'monday': 1,
+		'tuesday': 2,
+		'wednesday': 3,
+		'thursday': 4,
+		'friday': 5,
+		'saturday': 6,
+	};
+
   var split = time.split(':');
   var hours = split[0];
   var minutes = split[1];
