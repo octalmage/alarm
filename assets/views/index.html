@@ -4,11 +4,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-
-	<title>Taryn's A Piece Of Shit And Needs A Special Program To Be A Human Being</title>
+	<title>Alarm</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="apple-touch-icon" href="/penis.png">
 
 	<script type="text/javascript">
 	// Logic to redirect to the ngrok url if it exists.
@@ -31,9 +29,9 @@
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
-		<h1>Current Time to Wake This Hoe Up: {{time}}</h1>
+		<h1>Current time to sound alarm: {{time}}</h1>
 	<form action="/save" method="get">
-  Wake this bitch up at:
+  Time to sound alarm:
   <input type="time" value="{{time}}" name="usr_time">
   <input type="submit" value="save"><br>
 <div id="checkboxlist">
@@ -44,21 +42,14 @@
   <label><input type="checkbox" name="days" value="friday" {{{checked days "friday"}}}> Friday</label>
   <label><input type="checkbox" name="days" value="saturday" {{{checked days "saturday"}}}> Saturday</label>
   <label><input type="checkbox" name="days" value="sunday" {{{checked days "sunday"}}}> Sunday</label>
-
-
-
-
 </div>
 </form>
 
-<button id="every" class="ui-btn ui-shadow ui-corner-all">Every God Damned Day</button>
+<button id="every" class="ui-btn ui-shadow ui-corner-all">Every day</button>
 <form action="/trigger" method="get">
 <input type="submit" value="Sound the alarm!">
 </form>
-<marquee behavior="scroll" direction="left">Butt Stuff City</marquee>
 	</div><!-- /content -->
-
-
 </div>
 
 <script type="text/javascript">

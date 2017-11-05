@@ -34,7 +34,6 @@ app.get('/', function (req, res) {
 	res.render('index', { time: time, days: days, url: url });
 });
 
-
 app.get('/save', function (req, res) {
 	// Prepare output in JSON format
 	storage.setItem('time',req.query.usr_time);

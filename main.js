@@ -6,7 +6,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-const ipc = require('electron').ipcMain;
+const ipc = electron.ipcMain;
 
 const storage = require('node-persist');
 
