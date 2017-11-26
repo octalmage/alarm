@@ -5,16 +5,16 @@ const electron = require('electron');
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
-
 const ipc = electron.ipcMain;
-
+const powerSaveBlocker = electron.powerSaveBlocker;
 const storage = require('node-persist');
-
-var ngrok = require('ngrok');
+const ngrok = require('ngrok');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+const id = powerSaveBlocker.start('prevent-app-suspension');
 
 function createWindow () {
 	// Create the browser window.
