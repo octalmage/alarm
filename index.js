@@ -1,8 +1,11 @@
 var express = require('express');
 var app = express();
 var storage = require('node-persist');
+var moment = require('moment');
 //var mustacheExpress = require('mustache-express');
 var hbs = require('hbs');
+var store = require('./assets/store');
+
 app.use(express.static('assets/public'));
 
 // Redirect on on save/trigger.
@@ -13,15 +16,19 @@ app.use(/\/(?:save|trigger)/i, function (req, res, next) {
 	next();
 });
 
-// Register '.mustache' extension with The Mustache Express
-app.engine('html', hbs.__express);
 // check helper
 hbs.registerHelper('checked', function( array, value, options ) {
 	array = ( array instanceof Array ) ? array : [array];
 	return (array.indexOf(value) > -1) ? 'checked="checked"' : '';
 });
 
-app.set('view engine', 'html');
+hbs.registerHelper('formatDate', function(datetime) {
+  return moment(datetime).format('l LTS');
+});
+
+// Register '.html.hbs' extension with The Mustache Express
+app.engine('html.hbs', hbs.__express);
+app.set('view engine', 'html.hbs');
 app.set('views', __dirname + "/assets/views/");
 storage.initSync();
 
@@ -31,7 +38,8 @@ app.get('/', function (req, res) {
 	var time = storage.getItem('time');
 	var days = storage.getItem('days');
 	var url = storage.getItem('url');
-	res.render('index', { time: time, days: days, url: url });
+	var logs = store.get('logs');
+	res.render('index', { time: time, days: days, url: url, logs: logs });
 });
 
 app.get('/save', function (req, res) {

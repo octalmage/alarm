@@ -49,6 +49,8 @@ ipc.on('url', function(event, url) {
 });
 
 function alarm() {
+	ipc.send('alarm', 'play');
+
 	audio.volume = 1;
 	audio.play();
 
@@ -71,6 +73,7 @@ function alarm() {
 }
 
 function stop() {
+	ipc.send('alarm', 'stop');
 	clearTimeout(timeout);
 	audio.pause();
 	audio.currentTime = 0;
@@ -93,24 +96,22 @@ function convertDate(time, days) {
 		'saturday': 6,
 	};
 
-  var split = time.split(':');
-  var hours = split[0];
-  var minutes = split[1];
-  var dayMap = days.map(function(d) {
-  	return conversion[d];
-  });
+	var split = time.split(':');
+	var hours = split[0];
+	var minutes = split[1];
+	var dayMap = days.map(function(d) {
+		return conversion[d];
+	});
 
-  return minutes + ' ' + hours + ' * * ' + dayMap.join(',');
+	return minutes + ' ' + hours + ' * * ' + dayMap.join(',');
 }
 
 var turndown = function() {
+	if (!audio.paused && audio.volume > 0) {
+		ipc.send('alarm', 'turndown');
+	}
 	audio.volume = 0.0;
 };
 
-$(document).on('click', function() {
-	turndown();
-});
-
+$(document).on('click', turndown);
 $(document).on('keypress', turndown);
-
-$(document).on('mousemove', turndown);

@@ -9,6 +9,13 @@ const ipc = electron.ipcMain;
 const powerSaveBlocker = electron.powerSaveBlocker;
 const storage = require('node-persist');
 const ngrok = require('ngrok');
+const store = require('./assets/store');
+
+ipc.on('alarm', (_, action) => {
+	let logs = store.get('logs');
+	logs.push({ action, timestamp: Date.now() });
+	store.set('logs', logs);
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -21,7 +28,7 @@ function createWindow () {
 	mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
-		kiosk: true,
+		// kiosk: true,
 		show: true,
 	});
 
