@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+$(document).bind("mobileinit", function(){
+	$.extend(  $.mobile , {
+		defaultPageTransition: 'flip',
+	});
+});
+</script>
+<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<title>Alarm</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<script type="text/javascript">
+	// Logic to redirect to the ngrok url if it exists.
+	var url;
+
+	{{#if url}}
+	url = "{{url}}";
+	{{/if}}
+
+	if (typeof url !== 'undefined' && window.location.host.indexOf('ngrok') === -1) {
+		window.location = url;
+	}
+	</script>
+</head>
+<body>
+	<div data-role="page" id="main">
+
+		<div data-role="header">
+			<h1>Alarm</h1>
+			<a href="#stats">stats</a>
+		</div><!-- /header -->
+
+		<div role="main" class="ui-content">
+			<h1>Current time to sound alarm: {{time}}</h1>
+			<form action="/save" method="get">
+				Time to sound alarm:
+				<input type="time" value="{{time}}" name="usr_time">
+				<input type="submit" value="save"><br>
+				<div id="checkboxlist">
+					<label><input type="checkbox" name="days" value="monday" {{{checked days "monday"}}} /> Monday</label>
+					<label><input type="checkbox" name="days" value="tuesday" {{{checked days "tuesday"}}} /> Tuesday</label>
+					<label><input type="checkbox" name="days" value="wednesday" {{{checked days "wednesday"}}} /> Wednesday</label>
+					<label><input type="checkbox" name="days" value="thursday" {{{checked days "thursday"}}} /> Thursday</label>
+					<label><input type="checkbox" name="days" value="friday" {{{checked days "friday"}}} /> Friday</label>
+					<label><input type="checkbox" name="days" value="saturday" {{{checked days "saturday"}}} /> Saturday</label>
+					<label><input type="checkbox" name="days" value="sunday" {{{checked days "sunday"}}} /> Sunday</label>
+				</div>
+			</form>
+
+			<button id="every" class="ui-btn ui-shadow ui-corner-all">Every day</button>
+			<form action="/trigger" method="get">
+				<input type="submit" value="Sound the alarm!">
+			</form>
+		</div><!-- /content -->
+	</div>
+	<div data-role="page" id="stats">
+
+		<div data-role="header">
+			<a data-rel="back">back</a>
+			<h1>Stats</h1>
+		</div><!-- /header -->
+
+		<div data-role="content">
+			<table>
+				<thead>
+					<tr>
+						<th>Action</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each logs}}
+					<tr>
+						<td>{{this.action}}</td>
+						<td>{{formatDate this.timestamp}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+
+		</div><!-- /content -->
+	</div><!-- /page -->
+
+<script type="text/javascript">
+$('#every').on('click',function () {
+  $('input:checkbox').prop( 'checked', true ).checkboxradio( 'refresh' );
+});
+</script>
+
+</body>
+</html>
