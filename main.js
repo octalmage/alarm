@@ -10,6 +10,7 @@ const powerSaveBlocker = electron.powerSaveBlocker;
 const storage = require('node-persist');
 const ngrok = require('ngrok');
 const store = require('./assets/store');
+const ip = require('quick-local-ip');
 
 ipc.on('alarm', (_, action) => {
   let logs = store.get('logs');
@@ -101,7 +102,8 @@ function startTunnel(window) {
       console.log('ngrok failed to start', err);
     }
     else {
-      console.log('URL: ' + url);
+      console.log('Ngrok URL: ' + url);
+      console.log('Local URL: http://' + ip.getLocalIP4() + ':8081');
       window.webContents.send('url', url);
       storage.setItem('url', url);
     }

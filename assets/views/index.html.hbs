@@ -15,19 +15,6 @@ $(document).bind("mobileinit", function(){
 	<title>Alarm</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-
-	<script type="text/javascript">
-	// Logic to redirect to the ngrok url if it exists.
-	var url;
-
-	{{#if url}}
-	url = "{{url}}";
-	{{/if}}
-
-	if (typeof url !== 'undefined' && window.location.host.indexOf('ngrok') === -1) {
-		window.location = url;
-	}
-	</script>
 </head>
 <body>
 	<div data-role="page" id="main">
@@ -58,6 +45,9 @@ $(document).bind("mobileinit", function(){
 			<form action="/trigger" method="get">
 				<input type="submit" value="Sound the alarm!">
 			</form>
+			{{#if url}}
+				<a href="{{url}}">Ngrok</a>
+			{{/if}}
 		</div><!-- /content -->
 	</div>
 	<div data-role="page" id="stats">
