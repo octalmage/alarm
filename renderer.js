@@ -20,6 +20,10 @@ ipc.on('time', function(event, send) {
   if ( send.trigger ) {
     alarm();
   }
+
+  if ( send.stop ) {
+    stop();
+  }
   var test = moment(send.time, "HH:mm");
 
   if (time == send.time && days.join() == send.days.join()) {

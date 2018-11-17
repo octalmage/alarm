@@ -9,7 +9,7 @@ var store = require('./assets/store');
 app.use(express.static('assets/public'));
 
 // Redirect on on save/trigger.
-app.use(/\/(?:save|trigger)/i, function (req, res, next) {
+app.use(/\/(?:save|trigger|stop)/i, function (req, res, next) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('<html><body><script>window.location.href = "/";</script></body></html>');
   res.end();
@@ -53,6 +53,12 @@ app.get('/save', function (req, res) {
 app.get('/trigger', function (req, res) {
   // Set the alarm trigger.
   storage.setItem('trigger', true);
+  res.end();
+});
+
+app.get('/stop', function (req, res) {
+  // Set the alarm stop.
+  storage.setItem('stop', true);
   res.end();
 });
 

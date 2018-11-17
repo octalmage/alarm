@@ -38,13 +38,12 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-
   mainWindow.webContents.on('did-finish-load', function()
   {
     setInterval(function()
     {
       sendTime(mainWindow);
-    }, 5000);
+    }, 1000);
 
     sendTime(mainWindow);
     startTunnel(mainWindow);
@@ -84,13 +83,16 @@ function sendTime(window) {
   var time = storage.getItem('time');
   var days = storage.getItem('days');
   var trigger = storage.getItem('trigger');
+  var stop = storage.getItem('stop');
   var send = {
     time: time,
     days: days,
     trigger: trigger,
+    stop: stop,
   };
 
   storage.setItem('trigger', false);
+  storage.setItem('stop', false);
   window.webContents.send('time', send);
 }
 

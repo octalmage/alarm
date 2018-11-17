@@ -45,6 +45,9 @@ $(document).bind("mobileinit", function(){
 			<form action="/trigger" method="get">
 				<input type="submit" value="Sound the alarm!">
 			</form>
+			<form action="/stop" method="get">
+				<input type="submit" value="Stop the alarm!">
+			</form>
 			{{#if url}}
 				<a href="{{url}}">Ngrok</a>
 			{{/if}}
