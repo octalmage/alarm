@@ -4,7 +4,7 @@ var CronJob = require('cron').CronJob;
 var time, days, oldTime, job, timeout;
 
 var mySudokuJS = $("#sudoku").sudokuJS({
-  boardFinishedFn: function(data){
+  boardFinishedFn: function() {
     stop();
   }
 });
@@ -61,7 +61,7 @@ function alarm() {
   mySudokuJS.generateBoard("easy");
   mySudokuJS.showCandidates();
 
-  var steps = 10;
+  var steps = 31;
 
   for (var x = 0; x<=steps; x++) {
     mySudokuJS.solveStep();
@@ -114,7 +114,7 @@ var turndown = function() {
   if (!audio.paused && audio.volume > 0) {
     ipc.send('alarm', 'turndown');
   }
-  audio.volume = 0.0;
+  audio.volume = 0.1;
 };
 
 $(document).on('click', turndown);
