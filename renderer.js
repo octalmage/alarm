@@ -114,7 +114,7 @@ var turndown = function() {
   if (!audio.paused && audio.volume > 0) {
     ipc.send('alarm', 'turndown');
   }
-  audio.volume = 0.1;
+  audio.volume = 0.05;
 };
 
 $(document).on('click', turndown);
